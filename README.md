@@ -1,7 +1,7 @@
 # Dev Environments
 
 ## Register Environment
-Move Repository to: `/home/{user}/devshells` or desired path.
+Move Repository to: `/home/{user}/devshells` or desired path. 
 
 Add to registry:
 ```bash
