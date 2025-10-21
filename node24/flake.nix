@@ -11,11 +11,13 @@
     in pkgs.mkShell {
       buildInputs = [
         pkgs.nodejs_24
+        pkgs.yarn
       ];
 
       shellHook = ''
         echo "🚀 Node 24 shell active"
         node -v
+        yarn -v
       '';
     };
   };
