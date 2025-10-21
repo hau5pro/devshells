@@ -8,16 +8,19 @@
       pkgs = import nixpkgs { system = "x86_64-linux"; };
     in pkgs.mkShell {
       name = "claude-shell";
-      buildInputs = [
-        pkgs.nodejs_22
-      ];
+      buildInputs = [ pkgs.nodejs_22 ];
 
       shellHook = ''
         echo "🤖 Claude shell active"
 
-        # If Anthropic publishes a binary later, replace this with fetchurl+install.
-        # For now, install via npm (global inside this shell only)
-        if ! command -v claude &>/dev/null; then
+        # ensure npm installs to a user-writable prefix
+        export NPM_CONFIG_PREFIX="$HOME/.npm-global"
+        export PATH="$NPM_CONFIG_PREFIX/bin:$PATH"
+
+        # install Claude CLI if not already present
+        if ! command -v claude >/dev/null 2>&1; then
+          echo "Installing Claude CLI..."
+          mkdir -p "$NPM_CONFIG_PREFIX"
           npm install -g @anthropic-ai/claude-code
         fi
       '';
