@@ -1,5 +1,5 @@
 {
-  description = "Node.js 24 dev environment (Linux only, NixOS 25.05)";
+  description = "Node.js 24 dev environment";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
