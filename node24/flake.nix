@@ -16,8 +16,8 @@
 
       shellHook = ''
         echo "🚀 Node 24 shell active"
-        node -v
-        yarn -v
+        echo "Node: $(node -v)"
+        echo "Yarn: $(yarn -v)"
       '';
     };
   };

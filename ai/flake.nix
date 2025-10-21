@@ -23,6 +23,8 @@
           mkdir -p "$NPM_CONFIG_PREFIX"
           npm install -g @anthropic-ai/claude-code
         fi
+
+        echo "Claude: $(claude -v)"
       '';
     };
   };

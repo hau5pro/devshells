@@ -12,8 +12,8 @@
       buildInputs = [ pkgs.nodejs_22 pkgs.yarn ];
       shellHook = ''
         echo "🐢 Node 22 shell active"
-        node -v
-        yarn -v
+        echo "Node: $(node -v)"
+        echo "Yarn: $(yarn -v)"
       '';
     };
   };

@@ -17,20 +17,27 @@
   outputs = { self, nixpkgs, node22, node24, go, dotnet8, claude }:
   let
     system = "x86_64-linux";
-    lib = nixpkgs.lib;
+    pkgs = import nixpkgs { inherit system; };
 
-    # helper: merge Claude into any shell
-    withClaude = shell: lib.mkMerge [ shell claude.devShells.${system}.default ];
+    # Helper: merge two devShells manually
+    mergeShells = a: b:
+      pkgs.mkShell {
+        buildInputs = (a.buildInputs or []) ++ (b.buildInputs or []);
+        packages = (a.packages or []) ++ (b.packages or []);
+        nativeBuildInputs = (a.nativeBuildInputs or []) ++ (b.nativeBuildInputs or []);
+        shellHook = ''
+          ${a.shellHook or ""}
+          ${b.shellHook or ""}
+        '';
+      };
   in {
     devShells.${system} = {
-      # keep Claude standalone too
       claude  = claude.devShells.${system}.default;
 
-      # merge Claude into all other shells
-      node22  = withClaude node22.devShells.${system}.default;
-      node24  = withClaude node24.devShells.${system}.default;
-      go      = withClaude go.devShells.${system}.default;
-      dotnet8 = withClaude dotnet8.devShells.${system}.default;
+      node22  = mergeShells node22.devShells.${system}.default  claude.devShells.${system}.default;
+      node24  = mergeShells node24.devShells.${system}.default  claude.devShells.${system}.default;
+      go      = mergeShells go.devShells.${system}.default      claude.devShells.${system}.default;
+      dotnet8 = mergeShells dotnet8.devShells.${system}.default claude.devShells.${system}.default;
     };
   };
 }
