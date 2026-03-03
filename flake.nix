@@ -28,6 +28,7 @@
         shellHook = ''
           ${a.shellHook or ""}
           ${b.shellHook or ""}
+          exec zsh
         '';
       };
   in {
