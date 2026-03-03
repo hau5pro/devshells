@@ -11,6 +11,9 @@
     in pkgs.mkShell {
       buildInputs = [
         pkgs.dotnetCorePackages.sdk_8_0
+        pkgs.icu
+        pkgs.openssl
+        pkgs.zlib
       ];
 
       shellHook = ''
