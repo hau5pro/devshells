@@ -14,6 +14,7 @@
       ];
 
       shellHook = ''
+        export DOTNET_ROOT="${pkgs.dotnetCorePackages.sdk_8_0}/share/dotnet"
         echo "🧩 .NET 8 dev shell active"
         dotnet --info | head -n 5
       '';
