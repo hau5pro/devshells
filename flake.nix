@@ -23,7 +23,7 @@
       nativeBuildInputs = (shell.nativeBuildInputs or []);
       shellHook = ''
         ${shell.shellHook or ""}
-        exec zsh
+        [ -z "$DIRENV_IN_ENVRC" ] && exec zsh
       '';
     };
   in {
